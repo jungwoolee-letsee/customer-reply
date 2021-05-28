@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>campung</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r120/three.js"></script>
+  <script src="js/FBXLoader.js"></script>
+  <script src="js/inflate.min.js"></script>
+  <script src="https://developer.letsee.io/api/webar?key=494ef647d62efdeb43dcf2449e1650ac59985f4f5437e9dbbf8376db26cf95df"></script>
+</head>
+<body>
+<script>
+	let scene;
+	let renderer;
+	let update;
+	let clock = new THREE.Clock();
+	console.log(letsee);
+
+	letsee.ready(() => {
+		letsee.start();
+		letsee.addTHREE(THREE).then(obj => {
+			renderer = obj.renderer;
+			scene = obj.scene;
+			update = obj.update;
+			initWorld(obj);
+		})
+	});
+	letsee.init();
+
+	const initWorld = (obj) => {
+		let light = new THREE.DirectionalLight(0xffffff);
+		light.position.set(0, -95, 120);
+		scene.add(light);
+
+		// letsee.addTarget('https://s-developer.letsee.io/api-tm/target-manager/target-uid/6099fec6ffb936e8cd1de390').then(entity => {
+    letsee.addTarget('https://s-developer.letsee.io/api-tm/target-manager/target-uid/60a23096ffb936e8cd1de394').then(entity => {
+			let toystory = entity;
+			let mesh, mixer;
+
+			const loader = new THREE.FBXLoader();
+			loader.load('./volvo.fbx', function (object) {
+				//object.position.set(0, -95, 50);
+				object.visible = true;
+				object.scale.setScalar(5);
+
+				// Create custom animation clips
+				if (object.animations.length > 0) {
+					mixer = new THREE.AnimationMixer(object);
+					const action = mixer.clipAction(object.animations[0]);
+					action.play();
+				} else console.error(`Model [${object.name}] does not have animation.`);
+
+				mesh = object;
+				toystory.add(mesh);
+
+				// Add entity to scene
+				scene.add(toystory);
+
+				// Render all
+				const renderAll = async function () {
+					requestAnimationFrame(renderAll);
+					if (mixer) {
+						let delta = clock.getDelta();
+						mixer.update(delta);
+					}
+					await letsee.threeRenderer().update(); // Engine mainLoop 수행
+					const camera = letsee.threeRenderer().getDeviceCamera(); // 매 프레임마다 카메라 얻어옴.
+					renderer.render(scene, camera); // Three.js 화면 갱신
+				};
+				renderAll();
+			});
+		});
+	}
+</script>
+</body>
+</html>

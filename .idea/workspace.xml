@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d71920a9-b898-4d42-9dec-6bbbadac1c8e" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1sNCjv4ALovlIV5KnZHYdNPaYZ3" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/customer-1" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/js" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/customer-2" />
+      <recent name="$PROJECT_DIR$/js" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JavaScript Debug.index.html (1)">
+    <configuration name="index.html (1)" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:9999/customer/customer-2/index.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="index.html (2)" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:9999/customer/index.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="index.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:9999/customer/customer-1/index.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.index.html (1)" />
+        <item itemvalue="JavaScript Debug.index.html (2)" />
+        <item itemvalue="JavaScript Debug.index.html" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d71920a9-b898-4d42-9dec-6bbbadac1c8e" name="Default Changelist" comment="" />
+      <created>1620703798555</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1620703798555</updated>
+      <workItem from="1620703799852" duration="986000" />
+      <workItem from="1620704819863" duration="1007000" />
+      <workItem from="1620712388939" duration="4673000" />
+      <workItem from="1620728193927" duration="4248000" />
+      <workItem from="1621228951106" duration="430000" />
+      <workItem from="1621230765051" duration="528000" />
+      <workItem from="1621235543165" duration="47000" />
+      <workItem from="1621241752180" duration="918000" />
+      <workItem from="1622013419904" duration="4480000" />
+      <workItem from="1622181964468" duration="1384000" />
+      <workItem from="1622184317269" duration="256000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="947" y="598" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1620716517727">
+      <screen x="66" y="23" width="2494" height="1417" />
+    </state>
+    <state x="947" y="598" key="#com.intellij.fileTypes.FileTypeChooser/66.23.2494.1417/2560.23.2560.1417@66.23.2494.1417" timestamp="1620716517727" />
+    <state x="950" y="598" key="#com.intellij.fileTypes.FileTypeChooser/70.23.2490.1417/2560.23.2560.1417@70.23.2490.1417" timestamp="1620705293765" />
+    <state x="495" y="409" width="689" height="676" key="search.everywhere.popup" timestamp="1622014940743">
+      <screen x="0" y="23" width="2560" height="1417" />
+    </state>
+    <state x="495" y="409" width="689" height="676" key="search.everywhere.popup/0.23.2560.1417/2560.23.2560.1417@0.23.2560.1417" timestamp="1622014940743" />
+    <state x="550" y="409" width="670" height="676" key="search.everywhere.popup/68.23.2492.1417/2560.23.2560.1417@68.23.2492.1417" timestamp="1620719232804" />
+    <state x="556" y="409" key="search.everywhere.popup/75.23.2485.1417/2560.23.2560.1417@75.23.2485.1417" timestamp="1620704032432" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/customer-1/index_customer.html</url>
+          <line>43</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

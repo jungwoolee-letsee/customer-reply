@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Example</title>
+  <script src="https://developer.letsee.io/api/webar?key=1118d5de6fa9db6e1afcc6df60d40408b7d4fc03265844a058127a73682412ff"></script>
+</head>
+<body>
+<div id="container"> Hello, world!</div>
+<script>
+	letsee.ready(() => {
+		letsee.start();
+		letsee.addTarget('https://s-developer.letsee.io/api-tm/target-manager/target-uid/60b07fe2ffb936e8cd1de397').then(entity => {
+			const htmlElement = document.getElementById('container');
+			htmlElement.style.border = '1px solid red';
+			htmlElement.style.width = '320px';
+			htmlElement.style.height = '427px';
+			let xrElement = letsee.createXRElement(htmlElement);
+			letsee.bindXRElement(xrElement, entity);
+		});
+	});
+	letsee.init({ trackerType: 'image' });
+</script>
+</body>
+</html>
