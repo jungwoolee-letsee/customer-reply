@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>campung</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r120/three.js"></script>
+  <script src="js/FBXLoader.js"></script>
+  <script src="js/inflate.min.js"></script>
+  <script src="https://developer.letsee.io/api/webar?key=1118d5de6fa9db6e1afcc6df60d40408b7d4fc03265844a058127a73682412ff"></script>
+</head>
+<body>
+<script>
+	let scene;
+	let renderer;
+	let update;
+	let clock = new THREE.Clock();
+	console.log(letsee);
+
+	letsee.ready(() => {
+		letsee.start();
+		letsee.addTHREE(THREE).then(obj => {
+			renderer = obj.renderer;
+			scene = obj.scene;
+			update = obj.update;
+			letsee.addTarget('https://s-developer.letsee.io/api-tm/target-manager/target-uid/60b07fe2ffb936e8cd1de397').then(entity => {
+				let mesh, mixer;
+				let light = new THREE.DirectionalLight(0xffffff);
+				light.position.set(0, -95, 120);
+				scene.add(light);
+
+				const loader = new THREE.FBXLoader();
+				loader.load('./Samba Dancing.fbx', function (mesh) { // loader.load('./ball.fbx', function (mesh) {
+						mesh.position.set(0, -95, 50);
+						mesh.visible = true;
+						mesh.scale.setScalar(2);
+
+						// Create custom animation clips
+						if (mesh.animations.length > 0) {
+							mixer = new THREE.AnimationMixer(mesh);
+							const action = mixer.clipAction(mesh.animations[0]);
+							action.play();
+						} else {
+							console.error(`Model [${mesh.name}] does not have animation.`);
+						}
+						entity.add(mesh);
+						// Add entity to scene
+						scene.add(entity);
+					},
+					(progress) => console.log(progress),
+					(error) => console.log(error));
+
+				// Render all
+				const renderAll = async function () {
+					requestAnimationFrame(renderAll);
+					if (mixer) {
+						let delta = clock.getDelta();
+						mixer.update(delta);
+					}
+					await letsee.threeRenderer().update(); // Engine mainLoop 수행
+					const camera = letsee.threeRenderer().getDeviceCamera(); // 매 프레임마다 카메라 얻어옴.
+					renderer.render(scene, camera); // Three.js 화면 갱신
+				};
+				renderAll();
+			});
+		})
+	});
+	letsee.init();
+</script>
+</body>
+</html>

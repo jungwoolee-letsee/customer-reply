@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d71920a9-b898-4d42-9dec-6bbbadac1c8e" name="Default Changelist" comment="" />
+    <list default="true" id="d71920a9-b898-4d42-9dec-6bbbadac1c8e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/customer-3/Samba Dancing.fbx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/customer-3/hammer.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/customer-3/index3.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/customer-3/js/FBXLoader.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/customer-3/js/inflate.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/customer-1/index_customer.html" beforeDir="false" afterPath="$PROJECT_DIR$/customer-1/index2.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,7 +23,11 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1sNCjv4ALovlIV5KnZHYdNPaYZ3" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -23,22 +36,25 @@
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/customer-3" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/customer-3" />
       <recent name="$PROJECT_DIR$/customer-1" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/js" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/customer-3" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/customer-2" />
       <recent name="$PROJECT_DIR$/js" />
     </key>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.index.html (1)">
+  <component name="RunManager" selected="JavaScript Debug.index.html">
     <configuration name="index.html (1)" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:9999/customer/customer-2/index.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
@@ -50,9 +66,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JavaScript Debug.index.html" />
         <item itemvalue="JavaScript Debug.index.html (1)" />
         <item itemvalue="JavaScript Debug.index.html (2)" />
-        <item itemvalue="JavaScript Debug.index.html" />
       </list>
     </recent_temporary>
   </component>
@@ -76,7 +92,10 @@
       <workItem from="1621241752180" duration="918000" />
       <workItem from="1622013419904" duration="4480000" />
       <workItem from="1622181964468" duration="1384000" />
-      <workItem from="1622184317269" duration="256000" />
+      <workItem from="1622184317269" duration="1201000" />
+      <workItem from="1622188276061" duration="1513000" />
+      <workItem from="1622191019904" duration="2938000" />
+      <workItem from="1622195306407" duration="874000" />
     </task>
     <servers />
   </component>
@@ -100,7 +119,7 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/customer-1/index_customer.html</url>
+          <url>file://$PROJECT_DIR$/customer-1/index2.html</url>
           <line>43</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
