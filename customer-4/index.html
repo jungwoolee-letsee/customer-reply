@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  <title>ARX BOX</title>
+  <script src="https://developer.letsee.io/api/webar?key=9e13318aa0a67d4a233465046d7ce82717789a664fd7c5cb77543d1f9dc4af2c"></script>
+  <style media="place" type="text/css">
+    #container {
+      -letsee-target: uri("https://developer.letsee.io/api-tm/target-manager/target-uid/60aee343130fc5b620875dfa");
+      width: 260px; /* 300px */
+      height: 160px; /* 212.25px */
+    }
+  </style>
+</head>
+<body>
+<div id="container">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui. Mauris magna metus, dapibus nec turpis vel, semper malesuada ante. Vestibulum id metus ac nisl bibendum scelerisque non non purus. Suspendisse varius nibh non aliquet sagittis. In tincidunt orci sit amet elementum vestibulum. Vivamus fermentum in arcu in aliquam. Quisque aliquam porta odio in fringilla. Vivamus nisl leo, blandit at bibendum eu, tristique eget.</div>
+<!-- Loading the Letsee WebAR Engine -->
+<script type="application/javascript">
+	letsee.ready(() => {
+		letsee.start();
+	});
+	letsee.init({trackerType:"image"});
+</script>
+</body>
+</html>

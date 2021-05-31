@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d71920a9-b898-4d42-9dec-6bbbadac1c8e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/customer-3/Samba Dancing.fbx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/customer-3/hammer.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/customer-3/index3.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/customer-3/js/FBXLoader.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/customer-3/js/inflate.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/customer-4/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/customer-1/index_customer.html" beforeDir="false" afterPath="$PROJECT_DIR$/customer-1/index2.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,7 +89,7 @@
       <workItem from="1622184317269" duration="1201000" />
       <workItem from="1622188276061" duration="1513000" />
       <workItem from="1622191019904" duration="2938000" />
-      <workItem from="1622195306407" duration="874000" />
+      <workItem from="1622195306407" duration="4570000" />
     </task>
     <servers />
   </component>
@@ -122,6 +116,12 @@
           <url>file://$PROJECT_DIR$/customer-1/index2.html</url>
           <line>43</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/atob-hammer/hammer.html</url>
+          <line>28</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
