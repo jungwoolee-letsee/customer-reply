@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= htmlWebpackPlugin.options.title %></title>
+
+  <!-- THREE.js -->
+  <script src="https://unpkg.com/three@0.121.1/build/three.min.js"></script>
+  <script src="https://mrdoob.github.io/stats.js/build/stats.min.js"></script>
+  <style media="place" type="text/css">
+  </style>
+
+  <script src="https://developer.letsee.io/api/webar?key=21801e40c4bb2bffbdb66c03463d15bc0993606f6459b2b65bfa900e483a3389"></script>
+
+</head>
+<body>
+
+<script>
+  /**
+   * 2개 이상의 Target을 등록하는 예제 (addTarget 사용)
+   */
+  letsee.ready(() => {
+    letsee.start();
+
+    // toystory
+    letsee.addTarget('https://developer.letsee.io/api-tm/target-manager/target-uid/60f0faa6130fc5b620875e25').then(entity => {
+      const { width, height } = entity.physicalSize;
+      const div = document.createElement('div');
+      div.style.width = width+"px";
+      div.style.height = height+"px";
+      div.style.border = '1px solid red';
+
+      const xrElement = letsee.createXRElement(div);
+      letsee.bindXRElement(xrElement, entity);
+    })
+
+    // bts
+    letsee.addTarget('https://developer.letsee.io/api-tm/target-manager/target-uid/60f0fa9f332d3ccecddc27ff').then(entity => {
+      const { width, height } = entity.physicalSize;
+      const div = document.createElement('div');
+      div.style.width = width + "px";
+      div.style.height = height + "px";
+      div.style.border = '1px solid blue';
+
+      const xrElement = letsee.createXRElement(div);
+      letsee.bindXRElement(xrElement, entity);
+    });
+  });
+  letsee.init();
+</script>
+</body>
+</html>

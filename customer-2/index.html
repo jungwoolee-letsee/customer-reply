@@ -8,7 +8,7 @@
     #container {
       -letsee-target: uri('https://developer.letsee.io/api-tm/target-manager/target-uid/60adfab4772d11cebbaab76d');
       width: 800px;
-      height: 800px;
+      height: 500px;
       border:1px solid red;
     }
   </style>
@@ -24,6 +24,7 @@
   letsee.onTrackMove(() => {
     console.warn('move');
   });
+
   letsee.onTrackEnd(() => {
     console.error('end');
   });

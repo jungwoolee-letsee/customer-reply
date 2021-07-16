@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sample AR App</title>
+
+  <!-- Letsee SDK -->
+  <script src="https://developer.letsee.io/api/webar?key=73147ea6e0a09655cf14f23c030957baf0e1c06764afa76214ce259f3fbac716"></script>
+
+  <style media="place" type="text/css">
+    #container {
+      -letsee-target: uri('https://developer.letsee.io/api-tm/target-manager/target-uid/60de7040398942b60ead2d2f');
+      width: 55px;
+      height: 87px;
+    }
+
+    #video {
+      object-fit: cover;
+    }
+
+  </style>
+</head>
+<body>
+<div id="container">
+  <video id="video" src="video.mp4" playsinline width="55" height="87" preload="none" loop muted>
+  </video>
+</div>
+<script>
+  const myVideo = document.getElementById('video');
+
+  letsee.ready(() => {
+    letsee.start();
+
+    letsee.onTrackStart(e => {
+      myVideo.play();
+    });
+    letsee.onTrackEnd(e => {
+      // myVideo.pause();
+    });
+    letsee.onTrackMove(e => {});
+  });
+  letsee.init();
+</script>
+</body>
+</html>

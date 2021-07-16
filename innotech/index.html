@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  <title>분노의 질주: 더 얼티메이트</title>
+  <!-- Replace the app key here with your own app key -->
+  <script src="https://developer.letsee.io/api/webar?key=c0f93d94b2c9915a990e8211a067db25ec3e356cae81e1564b4542bebae4f032"></script>
+</head>
+<body>
+
+<!-- Display bottom text -->
+<div id="btm"></div>
+
+<!-- Loading the Letsee WebAR Engine -->
+<script type="application/javascript">
+
+	/* 카메라 상태 및 액세스 권한 */
+	var vid = false;
+	var gra = false;
+
+	let btm = document.getElementById('btm');
+	btm.style.color = '#ff0000';
+	btm.style.backgroundColor = '#ffffff';
+	btm.style.opacity = '0.5';
+	btm.style.position = 'fixed';
+	btm.style.bottom = '10px';
+	btm.style.left = '10px';
+	btm.style.zIndex = '500';
+	btm.style.fontSize = '12px';
+
+	letsee.ready(() => {
+		letsee.start();
+		/* TARGET URI 이용한 이미지 타겟 등록 */
+		letsee.addTarget('https://developer.letsee.io/api-tm/target-manager/target-uid/60bf3665332d3ccecddc27e0')
+			.then(entity => {
+				/* 증강 대상 DomElement 생성 */
+				let dom = document.createElement('div');
+				dom.id = 'container';
+
+				let myVid = document.createElement('video');
+				myVid.id = 'myVid';
+				myVid.style.width = 1054;
+				myVid.style.height = 735;
+				myVid.src = './video1_1054_735.mp4';
+				myVid.playsinline = true;
+				myVid.loop = true;
+				myVid.style.zIndex = '300';
+
+				dom.appendChild(myVid);
+				/* XRElement 생성 */
+				let xrElement = letsee.createXRElement(dom);
+				/* XRElement 의 entity 바인딩 */
+				letsee.bindXRElement(xrElement, entity);
+
+				/* 카메라 상태 체크 */
+				var videoCheck = function() {
+					if (vid) { btm.innerHTML = ''; }
+					else if (gra) { location.reload(); }
+					else { btm.innerHTML = '브라우저 앱의 카메라 권한을 허용한 후 [새로고침]을 해주세요.'; setTimeout(videoCheck, 1000); }
+				}
+
+				/* 카메라 권한 체크 */
+				var permissionCheck = function() {
+					if (navigator.permissions == null) { setTimeout(permissionCheck, 1000); return; }
+					navigator.permissions.query({name:'camera'}).then(result => {
+						if (result.state === 'granted') {
+							if (vid) { btm.innerHTML = ''; }
+							else { btm.innerHTML = ''; setTimeout(videoCheck, 3000); }
+						}
+						else if (result.state === 'prompt') {
+							gra = true;
+							btm.innerHTML = 'WebAR을 실행하려면 카메라에 대한 액세스 권한이 필요합니다.';
+							setTimeout(permissionCheck, 1000);
+						}
+						else {
+							btm.innerHTML = '브라우저의 [설정] - [사이트 설정] - [카메라]에서 권한을 허용해주세요.';
+							setTimeout(permissionCheck, 1000);
+						}
+					});
+				}
+
+				myVid.addEventListener('loadeddata', function() {
+					if(myVid.readyState >= 4) {
+						setTimeout(permissionCheck, 1000);
+					}
+				});
+
+				letsee.videoManager().srcVideo.onplaying = (() => { vid = true; letsee.videoManager().srcVideo.onplaying = null; });
+			});
+	});
+	letsee.init({trackerType:'image'});
+	letsee.onTrackStart(() => {
+		btm.innerHTML = '';
+		myVid.play().then(() => console.log('playing')).catch(err => console.error(err));
+	});
+	letsee.onTrackEnd(() => {
+		btm.innerHTML = '';
+		myVid.pause();
+	});
+</script>
+</body>
+</html>
