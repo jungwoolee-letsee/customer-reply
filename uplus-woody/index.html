@@ -22,10 +22,12 @@
     }
 
     #header {
-      width: 90vw;
-      left: 5vw;
+      width: 98vw;
+      left: 1vw;
       position:absolute;
-      top: 12vh;
+      top: 2vh;
+      display: flex;
+      flex-direction: column;
     }
 
     #footer {
@@ -34,10 +36,21 @@
       position:absolute;
     }
 
+    #footer-img:active {
+      position: relative;
+      top:4px;
+    }
+
     @media (orientation: landscape) {
-      #header-img {
+      #header-title {
         width: 50%;
+        margin-top: 5px;
         padding-left: 25%;
+        object-fit: contain;
+      }
+
+      #header-logo {
+        width: 15%;
         object-fit: contain;
       }
 
@@ -49,9 +62,15 @@
     }
 
     @media (orientation: portrait) {
-      #header-img {
-        width: 90%;
-        padding-left: 5%;
+      #header-title {
+        width: 85%;
+        margin-top: 10px;
+        padding-left: 7.5%;
+        object-fit: contain;
+      }
+
+      #header-logo {
+        width: 30%;
         object-fit: contain;
       }
 
@@ -67,7 +86,8 @@
 <body>
 <div id="container">
   <div id="header">
-    <img id="header-img" src="ic_top_logo.png" alt="" />
+    <img id="header-logo" src="ic_logo.png"/>
+    <img id="header-title" src="ic_title.png" alt="" />
   </div>
   <div id="footer">
     <img id="footer-img" src="ic_button.png" alt=""/>
@@ -95,11 +115,29 @@
   });
   letsee.init();
 
-  document.getElementById("footer").style.top = `${window.innerHeight -50}` + 'px';
+  document.getElementById("footer").style.top = `${window.innerHeight - window.innerHeight * 0.15}` + 'px';
 
   window.addEventListener('resize', (event) => {
-    document.getElementById("footer").style.top = `${window.innerHeight -50}` + 'px';
+    document.getElementById("footer").style.top = `${window.innerHeight - window.innerHeight * 0.15}` + 'px';
   });
+
+  let timer;
+  document.getElementById('footer-img').onclick = () => {
+    if (timer) {
+      return;
+    }
+
+    timer = setTimeout(() => {
+      window.open(`https://shop.uplus.co.kr/`, '_blank');
+      timer = null;
+    }, 1000);
+  };
+
+  window.oncontextmenu = function(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    return false;
+  };
 
 </script>
 </body>

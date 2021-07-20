@@ -80,7 +80,36 @@ function proceedModel() {
 
       if (model) {
         //  Do something
+        toystory.matrixAutoUpdate = false;
+        toystory.position.z = -250;
+        toystory.visible = true;
+        toystory.updateMatrix();
       }
+    });
+
+    /**
+     * For model load in not tracking status.
+     */
+    letsee.onTrackEnd((te) => {
+      // const temp = {
+      //   // elements: [0.9996717718958484, 0.0062402214640219465, -0.02484769829772193, 0, -0.0025224514927073274, 0.9891437930727777, 0.14692921378699628, 0, 0.02549481737690216, -0.14681831037604906, 0.988834868936791, 0, -10.489514205452574, -2.8702186425177274, -300.4471307995897, 1],
+      //   elements: [0.9996717718958484, 0.0062402214640219465, -0.02484769829772193, 0, -0.0025224514927073274, 0.9891437930727777, 0.14692921378699628, 0, 0.02549481737690216, -0.14681831037604906, 0.988834868936791, 0, -10.489514205452574, 30.5702186425177274, -250.4471307995897, 1],
+      //   isMatrix4: true,
+      // };
+      //
+      // toystory.matrixAutoUpdate = false;
+      // toystory.applyMatrix4(temp);
+      // toystory.updateMatrix();
+      // toystory.visible = true;
+      //
+      // mesh.scale.setScalar(400);
+      // mesh.position.set(0, -100, 50);
+
+      toystory.matrixAutoUpdate = false;
+      toystory.position.z = -250;
+      toystory.visible = true;
+      toystory.updateMatrix();
+
     });
 
     // Render all
@@ -122,7 +151,7 @@ function loadModel() {
 
       gltf.scene.scale.setScalar(2.5);
       gltf.scene.rotation.y = -120;
-      gltf.scene.position.set(0, -80, 10);
+      gltf.scene.position.set(0, -70, 10);
       gltf.scene.name = 'Woody';
 
       resolve(gltf.scene);
