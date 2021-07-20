@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= htmlWebpackPlugin.options.title %></title>
+
+  <!-- THREE.js -->
+  <script src="js/three/0.126.1/three.min.js"></script>
+  <script src="js/three/0.126.1/GLTFLoader.js"></script>
+  <script src="https://mrdoob.github.io/stats.js/build/stats.min.js"></script>
+  <style media="place" type="text/css">
+  </style>
+
+  <script src="https://developer.letsee.io/api/webar?key=4691b154391bbf1d2a2505353e047395c24459c7e188594a8fc9b0fdff900cd4"></script>
+
+</head>
+<body>
+
+<script>
+  let mainURL = 'https://intra.letsee.io/3D-model/gltf/';
+  let mixer;
+
+  letsee.ready(() => {
+    letsee.start();
+    // letsee.onTrackStart(() => {
+    //   document.getElementById('bottom').style.display = 'block';
+    //   document.getElementById('message').style.display = 'block';
+    //
+    // });
+    // letsee.onTrackEnd((te) => {
+    //
+    //   document.getElementById('bottom').style.display = 'flex';
+    //   document.getElementById('message').style.display = 'flex';
+    //
+    //   if (document.getElementById('narration-panel').style.display === 'flex' ||
+    //     document.getElementById('controlPanel').style.display === 'flex') {
+    //     document.getElementById('message').style.display = 'none';
+    //   }
+    //
+    //   const temp = {
+    //     // elements: [0.9996717718958484, 0.0062402214640219465, -0.02484769829772193, 0, -0.0025224514927073274, 0.9891437930727777, 0.14692921378699628, 0, 0.02549481737690216, -0.14681831037604906, 0.988834868936791, 0, -10.489514205452574, -2.8702186425177274, -300.4471307995897, 1],
+    //     elements: [0.9996717718958484, 0.0062402214640219465, -0.02484769829772193, 0, -0.0025224514927073274, 0.9891437930727777, 0.14692921378699628, 0, 0.02549481737690216, -0.14681831037604906, 0.988834868936791, 0, -10.489514205452574, 30.5702186425177274, -250.4471307995897, 1],
+    //     isMatrix4: true,
+    //   }
+    //
+    //   toystory.matrixAutoUpdate = false;
+    //   toystory.applyMatrix4(temp);
+    //   toystory.updateMatrix();
+    //   toystory.visible = true;
+    //
+    //   mesh.scale.setScalar(400);
+    //   mesh.position.set(0, -100, 50);
+    //
+    // });
+
+    // toystory
+    letsee.addTHREE(THREE).then(obj => {
+      console.log(obj);
+      // camera = obj.camera;
+      renderer = obj.renderer;
+      scene = obj.scene;
+      update = obj.update;
+      letsee.addTarget('https://developer.letsee.io/api-tm/target-manager/target-uid/60f0faa6130fc5b620875e25').then(entity => {
+        scene.add(entity);
+
+        let ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+        ambientLight.position.set(0, 0, 0);
+        scene.add(ambientLight);
+
+        let dirLight = new THREE.DirectionalLight(0xffffff, 2.5);
+        dirLight.position.set(-0.5, 0.5, 0.866);
+        dirLight.castShadow = false;
+        dirLight.shadow.mapSize = new THREE.Vector2(512, 512);
+        scene.add(dirLight);
+
+        let gltfLoader = new THREE.GLTFLoader();
+        gltfLoader.load( mainURL + 'woody/scene.gltf' , function(gltf) {
+          if (gltf.animations.length) {
+            mixer = new THREE.AnimationMixer( gltf.scene );
+            let action = mixer.clipAction( gltf.animations[ 0 ] );
+            action.play();
+          }
+
+          gltf.scene.scale.setScalar(3.5);
+          gltf.scene.rotation.y = -120;
+          gltf.scene.position.set(0, -100, -100);
+          gltf.scene.name = 'Woody';
+
+          entity.add(gltf.scene);
+        }, () => {}, () => {});
+
+        const animate = async function() {
+          requestAnimationFrame(animate);
+          await letsee.threeRenderer().update();
+          const camera = letsee.threeRenderer().getDeviceCamera();
+          renderer.render(scene, camera);
+        };
+        animate();
+      });
+    });
+  });
+  letsee.init();
+</script>
+</body>
+</html>
