@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sample AR App</title>
+
+    <!-- Letsee SDK -->
+    <script src="https://developer.letsee.io/api/webar?key=43e32637dd671b6bf696f1bbf2a944db8f73adc8db0555a5a75fe7ebbba437e1"></script>
+
+    <style>
+        .info {
+            /*border: 1px solid blue;*/
+            position: absolute;
+            width: 1000px;
+            height: 750px;
+        }
+
+        .info-buttons__item {
+            width: 100%;
+            height: 100%;
+            /*border: 1px solid red;*/
+            position:absolute;
+        }
+
+        .info-buttons__item > * {
+            background-color: black;
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            color: whitesmoke;
+            border-radius: 25px;
+            border:3px solid red;
+        }
+
+        /** 버튼 **/
+        .info-buttons__item > .info-buttons__first {
+            left: calc(500px - 20px); /** (Marker image width - half width of button's width) **/
+            top: calc(75px - 20px); /** (Marker image height - half width of button's height) **/
+        }
+
+        .info-buttons__item > .info-buttons__second {
+            left: calc(250px - 20px);
+            top: calc(75px - 20px);
+
+        }
+
+        .info-buttons__item > .info-buttons__third {
+            left: calc(750px - 20px);
+            top: calc(100px - 20px);
+        }
+
+        /** 콘텐츠 **/
+        .info-contents__item {
+            width: 100%;
+            height: 550px;
+            margin-top: 200px;
+            /*border: 10px solid blue;*/
+            position: absolute;
+            display: flex ;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+
+    <style media="place" type="text/css">
+        #container {
+            -letsee-target: uri('https://developer.letsee.io/api-tm/target-manager/target-uid/6100cf4d130fc5b620875e2e');
+        }
+    </style>
+</head>
+<body>
+<div id="container" class="info">
+    <div class="info-buttons__item">
+        <div class="info-buttons__first">1</div>
+        <div class="info-buttons__second">2</div>
+        <div class="info-buttons__third">3</div>
+    </div>
+
+    <div class="info-contents__item">
+        <div class="info-contents__first" style="display: none">
+            <img src="1.jpg" alt="이미지가 없습니다." />
+        </div>
+
+        <div class="info-contents__second" style="display: none">
+            <img src="2.jpg" alt="이미지가 없습니다." />
+        </div>
+
+        <div class="info-contents__third" style="display: none">
+            <img src="3.jpg" alt="이미지가 없습니다." />
+        </div>
+    </div>
+</div>
+<script>
+    const buttonFirst = document.getElementsByClassName('info-buttons__first')[0];
+    const buttonSecond = document.getElementsByClassName('info-buttons__second')[0];
+    const buttonThird = document.getElementsByClassName('info-buttons__third')[0];
+
+    const contentFirst = document.getElementsByClassName('info-contents__first')[0];
+    const contentSecond = document.getElementsByClassName('info-contents__second')[0];
+    const contentThird = document.getElementsByClassName('info-contents__third')[0];
+
+    buttonFirst.addEventListener('click', () => {
+        contentFirst.style.display = 'block';
+        contentSecond.style.display = 'none';
+        contentThird.style.display = 'none';
+    })
+
+    buttonSecond.addEventListener('click', () => {
+        contentFirst.style.display = 'none';
+        contentSecond.style.display = 'block';
+        contentThird.style.display = 'none';
+    })
+
+    buttonThird.addEventListener('click', () => {
+        contentFirst.style.display = 'none';
+        contentSecond.style.display = 'none';
+        contentThird.style.display = 'block';
+    })
+
+    letsee.ready(() => {
+        letsee.start();
+    });
+    letsee.init();
+
+</script>
+</body>
+</html>
