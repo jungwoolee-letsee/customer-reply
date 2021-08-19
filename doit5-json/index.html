@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>SPC</title>
+  <script src="https://d-developer.letsee.io/api/webar?key=91b8d21dd6a887998d31e0321466e0b3d13920af1b0527e4800c70027af2579d"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="./css/css.css" />
+
+  <style media="place" type="text/css">
+    #container {
+      -letsee-target: uri("doit5.json");
+    }
+  </style>
+</head>
+<body>
+<div id="container">
+  <iframe id="eventFrame" width="900" height="1200px" src="game/index.html" frameborder="0" allow="accelerometer;"></iframe>
+</div>
+<div class="anim-object active" id="circle-object">
+  <span class="particletext confetti"></span>
+</div>
+</body>
+</html>
+
+<script>
+  startLetsee();
+
+  var child = document.getElementById('eventFrame');
+  var coupon_code = "";
+  window.addEventListener('message', getPostMessage, false);
+
+  function startLetsee() {
+    letsee.init();
+    letsee.ready(() => {
+      letsee.start();
+
+      // setTimeout(function() {
+      //     $(".loading").hide();
+      // }, 2000);
+      // $(".loading").hide();
+    });
+    letsee.onTrackStart(e => {
+      var data = `{"type" : "start", "user_key" : "${get_query().user_key}"}`;
+      sendPostMessage(data);
+      $("#container").show();
+    });
+  }
+  function sendPostMessage(data) {
+    child.contentWindow.postMessage(data, '*');
+  }
+
+  function getPostMessage(e) {
+    if (e.data) {
+      var data = e.data;
+      if (typeof data === 'object') {
+        if (data.code == '0') {
+          letsee.pause();
+          $("#eventFrame").hide();
+
+          confetti();
+          $("#circle-object img").show();
+
+          $("#circle-object").css("animation", "1.1s ease 0s 1 normal both running bounce-in-fwd");
+        }
+        else {
+          alert("서버 에러");
+        }
+      }
+
+      // if (data.type == "copy") {
+      //     coupon_code = data.coupon_code;
+      //     console.log(coupon_code);
+
+      //     // 쿠폰번호 복사
+      //     const t = document.createElement("textarea");
+      //     document.body.appendChild(t);
+      //     t.value = coupon_code;
+      //     t.select();
+      //     document.execCommand('copy');
+      //     document.body.removeChild(t);
+      // }
+      // else if (data.type == "request") {
+      //     letsee.pause();
+      // }
+    }
+  }
+
+  function get_query() {
+    var url = document.location.href;
+    var qs = url.substring(url.indexOf('?') + 1).split('&');
+    for(var i = 0, result = {}; i < qs.length; i++){
+      qs[i] = qs[i].split('=');
+      result[qs[i][0]] = decodeURIComponent(qs[i][1]);
+    }
+    return result;
+  }
+
+
+  function confetti() {
+    // 지정된 태그크기를 기반으로 애니메이션 처리가 되는 span 태그를 생성
+    // 각 태그의 top, left, width, height, animation-delay 처리
+    console.log('confetti');
+
+    let t = document.querySelector('.particletext.confetti');
+
+    var confetticount = Math.floor(220 / 40) * 10;
+    let span = '';
+    for(var i = 0; i <= confetticount; i++) {
+      span += '<span class="particle c' + rnd(1,2) + '" style="top:' + rnd(-440,-540) + '%; left:' + rnd(0,100) + '%;width:' + rnd(10,12) + 'px; height:' + rnd(7,8) + 'px;animation-delay: ' + (rnd(0,30)/10) + 's;"></span>';
+    }
+    t.innerHTML = '<img src="res/imgs/image_48.png">' + span;
+  }
+  function rnd(m, n) {
+    m = parseInt(m);
+    n = parseInt(n);
+    return Math.floor( Math.random() * (n - m + 1) ) + m;
+  }
+</script>
