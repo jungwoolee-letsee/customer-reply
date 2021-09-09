@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>HyunDai Casper AR</title>
+	<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Letsee SDK -->
+  <script src="https://developer.letsee.io/api/webar?key=83915b439e714b9e3819871d9c67314a237ac3651caf219e57eabfaf27a9335b"></script>
+  
+	<script src="https://unpkg.com/three@0.124.0/build/three.min.js"></script>
+	<script src="https://unpkg.com/three@0.124.0/examples/js/loaders/RGBELoader.js"></script>
+	<script src="https://unpkg.com/three@0.124.0/examples/js/loaders/GLTFLoader.js"></script>
+	<script src="https://unpkg.com/three@0.124.0/examples/js/loaders/DRACOLoader.js"></script>
+	<script src="https://unpkg.com/three@0.124.0/examples/js/loaders/SVGLoader.js"></script>
+
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+	<!-- Hammer -->
+	<script src="https://hammerjs.github.io/dist/hammer.js"></script>
+
+  <!-- TWEEN -->
+	<script src="js/lib/tween/tween.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+ 
+	<!-- client code -->
+	<script src="js/ResourceTracker.js"></script>
+	<script src="js/utility.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/LoadingModel.js"></script>
+	<script src="js/Media.js"></script>
+	<script src="js/AnimationControl.js"></script>
+	<script src="js/Partical.js"></script>
+	
+	<!--Slick-->
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+
+  <script  src="https://code.jquery.com/jquery-latest.min.js"></script>
+	
+<!-- client code -->
+<link rel="stylesheet" href="css/normal.css">
+<link rel="stylesheet" href="css/screen.css">
+  
+</head>
+<body>
+	<div id="container" >
+		
+		<div id="main_title_area">
+        <img src="./assets/img/title.svg">
+		</div>
+  
+    <div id="car_select">
+      <button id="car_select_btn_1" class="car_select_btn" onClick="changeCar(1);">
+        <span>캐스퍼</span>
+      </button>
+      
+      <button id="car_select_btn_2" class="car_select_btn" onClick="changeCar(2);">
+        <span> <b>캐스퍼</b> 액티브</span>
+      </button>
+      
+
+    </div>
+
+  
+		<div id="nav-bar">
+			<button class="tab" id="tab-1"  onClick="changeMenu(1)">
+        <span>외장</span>
+      </button>
+			<button class="tab" id="tab-2" onClick="changeMenu(2)">
+				
+				<span>내장</span>
+      </button>
+			<button class="tab" id="tab-3" onClick="changeMenu(3)">
+				<span>안전 <br />사양</span>
+      </button>
+			<button class="tab" id="tab-4" onClick="changeMenu(4)">
+        <span>AR</span>
+      </button>
+      <button class="tab" id="tab-5">
+        <span id="online_font">캐스퍼 <br /> 온라인</span>
+        <div id="bubble2" style="display:none" >
+          <img src= './assets/img/bubble2.png' />
+          <span class="label">캐스퍼 더 자세히 알아보기</span>
+        </div>
+        <div id="bubble" style="display:none">
+          <img src= './assets/img/bubble.png' />
+          <span class="label">캐스퍼 더 자세히 알아보기</span>
+        </div>
+      </button>
+		</div>
+
+    <div id="outside-nav-bar">
+			<button class="outside_tab" id="outside_tab-1"  onClick="changeOutsideMenu(1)">
+        <img src='./assets/img/icon_sub_detail_off.png' />
+      </button>
+			<button class="outside_tab" id="outside_tab-2" onClick="changeOutsideMenu(2)">
+				<img src='./assets/img/icon_sub_lamp_off.png' />
+      </button>
+			<button class="outside_tab" id="outside_tab-3" onClick="changeOutsideMenu(3)">
+				
+      </button>
+			<button class="outside_tab" id="outside_tab-4" onClick="changeOutsideMenu(4)">
+        
+      </button>
+      <button class="outside_tab" id="outside_tab-5" onClick="changeOutsideMenu(5)">
+        
+      </button>
+      <button class="outside_tab" id="outside_tab-6" onClick="changeOutsideMenu(6)">
+        
+      </button>
+      <button class="outside_tab" id="outside_tab-7" onClick="changeOutsideMenu(7)">
+        
+      </button>
+      <button class="outside_tab" id="outside_tab-8" onClick="changeOutsideMenu(8)">
+        
+      </button>
+		</div>
+  
+    <div id="inside-nav-bar">
+			<button class="inside_tab" id="inside_tab-1"  onClick="changeInsideMenu(1)">
+        <img src='./assets/img/icon_sub_detail_off.png' />
+      </button>
+			<button class="inside_tab" id="inside_tab-2" onClick="changeInsideMenu(2)">
+				<img src='./assets/img/icon_sub_mood_off.png' />
+      </button>
+			<button class="inside_tab" id="inside_tab-3" onClick="changeInsideMenu(3)">
+				
+      </button>
+			<button class="inside_tab" id="inside_tab-4" onClick="changeInsideMenu(4)">
+          <div class="inner_circle" id="inner_circle1"></div><div class="inner_circle" id="inner_circle2"></div>
+      </button>
+      <button class="inside_tab" id="inside_tab-5" onClick="changeInsideMenu(5)">
+          <div class="inner_circle" id="inner_circle3"></div><div class="inner_circle" id="inner_circle4"></div>
+      </button>
+		</div>
+
+  </div>
+
+  
+  <div id="hint">
+    
+		<p id="percent"></p>
+		<svg
+						class="progress-ring"
+						width="130"
+						height="130">
+			<circle
+							class="progress-ring__circle"
+							stroke="#a50634"
+							stroke-width="4"
+							fill="rgba(255, 255, 255, 0.5)"
+							r="52"
+							cx="60"
+							cy="60"/>
+		</svg>
+    
+
+    <div id="loading_image1" class="loading_image">
+      <img src="./assets/img/loading.png">
+    </div> 
+
+    <div id="loading_image2" class="loading_image">
+        <img src="./assets/img/loading_title1.png">
+      
+    </div> 
+    
+    <div id="loading_image3" class="loading_image">
+        <img src="./assets/img/loading_title2.png">
+    </div> 
+    
+	</div>
+
+  <div id="disableDiv" class="disableDiv" style="display:none"></div>
+
+  <div id="popup_area">
+
+    <div id="popup_small" class ="popup_small" style="display:none;">
+  
+      <button class='border0' id="btn_small_popup_close" onclick="popup_small_close();">
+        <img src = './assets/img/popup_small_close.png'>
+      </button>
+      <span class="small_popup_badge" id ="small_popup_badge"> 인스퍼레이션 트림 이상      </span>
+      <div class="small_popup_img_area" >
+        <img class='small_popup_img' src = '' onclick="onPopupLarge();" />
+      </div>
+      <div class="small_popup_content">
+        <p class="title1"></p>
+        <p class="title2"></p>
+        <p class="content"></p>
+        
+      </div>
+      <button class="btn_small_popup_detail"> 
+        <img width="100%" height="100%" src = './assets/img/popup_btn_godetail.png'>
+      </button>
+    </div>
+
+    <div id="popup_small2" class ="popup_small" style="display:none;">
+  
+      <button class='border0' id="btn_small_popup_close" onclick="popup_small2_close();">
+        <img src = './assets/img/popup_small_close.png'>
+      </button>
+      <div class="small_popup_img_area" >
+        <img class='small_popup_img' src = './assets/img/popup/headlamp_small.png' onclick="onPopupLarge('exception');" />
+      </div>
+      <div class="small_popup_content">
+        <p class="title1">LED 주간주행등 </p>
+        
+        <p class="content">
+          <span class="small_popup_badge" >인스퍼레이션 트림 이상      </span> <br/><br/>
+          <span id="popup_small2_title">헤드램프 (프로젝션 타입</span><br/>
+          로우빔 / 하이빔 (프로젝션)
+        </p>
+        
+      </div>
+      <button class="btn_small_popup_detail"> 
+        <img width="100%" height="100%" src = './assets/img/popup_btn_godetail.png'>
+      </button>
+    </div>
+
+    <div id="popup_large" style="display:none;">
+      <button class='border0' id="btn_large_popup_close" onclick="popup_large_close();">
+      <img src = './assets/img/popup_large_close.png'>
+    
+      </button>
+    </div>
+
+
+    <div id="popup_social" style="display:none;" >
+  
+      <button class='border0' id="btn_small_popup_close" onclick="popup_social_close();">
+        <img src = './assets/img/popup_small_close.png'>
+      </button>
+      <p class="small_popup_title" >
+        여러분의 CASPER XR 경험을 <br/>
+        해시태그와 함께 올려주세요
+        
+      </p>
+      <p class='fw300 fontHeadKR'>
+        #CASPER
+        <br/>
+      
+        #casebyCASPER
+      </p>
+
+      <button id="btn_social_popup_detail"> 
+        <img width="100%" height="100%" src = './assets/img/popup_social.svg'>
+      </button>
+      <div id="social_btn_area">
+          <button id="facebook" class="social_btn border0">
+              <img class="in border0" src="./assets/img/social_facebook_in.png" />
+              <img class="out border0" src="./assets/img/social_facebook_out.png" />
+          </button>
+          <button id="twitter" class="social_btn border0">
+              <img class="in border0" src="./assets/img/social_twitter_in.png" />
+              <img class="out border0" src="./assets/img/social_twitter_out.png" />
+          </button>
+          <button id="instagram" class="social_btn border0">
+              <img class="in border0" src="./assets/img/social_instagram_in.png" />
+              <img class="out border0" src="./assets/img/social_instagram_out.png" />
+          </button>
+      </div>
+
+    </div>
+     
+  </div>
+ 
+<model-viewer id="model-viewer" 
+  src="assets/model/Hyundai_Basic_v04.glb"
+  ios-src="assets/model/Hyundai_Basic_v04.usdz"
+  ar 
+  camera-controls 
+  interaction-prompt="none"
+  ar-modes="scene-viewer quick-look webxr" 
+  ar-scale="auto"
+  >
+</model-viewer>
+	
+<script>
+  
+var carNumber;
+var now_popupNumber = 0;
+var isOutsideDetail = false;
+var isOutsideLamp = false;
+var isInsideDetail = false;
+var isInsideLamp = false;
+
+var popupContents = [
+  { imgsrc : 'casper_grill_small.png', imgLargesrc : 'casper_grill_large.png', badge:'캐스퍼 전용',  title1 : '라디에이터 그릴', title2 : '', content : '미래지향적인 파라메트릭 패턴 그릴' },
+  { imgsrc : 'active_grill_small.png', imgLargesrc : 'active_grill_large.png', badge:'캐스퍼 액티브 전용',  title1 : '라디에이터 그릴', title2 : '', content : '냉각성능 강화한 메쉬타입 그릴' },
+  { imgsrc : 'turn_signal_small.png', imgLargesrc : 'turn_signal_large.png', badge:'',  title1 : '턴 시그널 램프', title2 : '', content : '개성있는 이미지의 디자인' },
+  { imgsrc : 'casper_metalpaint_small.png',  imgLargesrc : 'casper_metalpaint_large.png', badge:'모던 트림 이상', title1 : '메탈 페인트', title2 : '스키드 플레이트', content : '캐릭터 라인을 적용으로 아이코닉한 이미지' },
+  { imgsrc : 'active_metalpaint_small.png',  imgLargesrc : 'active_metalpaint_large.png',badge:'캐스퍼 액티브 전용', title1 : '메탈 페인트', title2 : '스키드 플레이트', content : '냉각성능 강화한 디자인' },
+  { imgsrc : 'frontrear_small.png',  imgLargesrc : 'frontrear_large.png',badge:'', title1 : '프론트/리어 펜더', title2 : '', content : '역동성과 볼륨감을 강조한 디자인' },
+  { imgsrc : 'outside_mirror_small.png',  imgLargesrc : 'outside_mirror_large.png',badge:'옵션사양', title1 : '아웃사이더 미러', title2 : '(LED 방향지시등)', content : '도어락과 연동으로 자동 락폴딩' },
+  { imgsrc : 'Bpillar_small.png',  imgLargesrc : 'Bpillar_large.png',badge:'', title1 : 'B필라', title2 : '', content : '도어 판넬과 일체화된 디자인으로 단단하고 강인한 이미지' },
+  { imgsrc : 'looprack_small.png',  imgLargesrc : 'looprack_large.png',badge:'옵션사양', title1 : '루프렉', title2 : '', content : '최대 적재하중 75kg의 브릿지 타입으로 SUV만의 강인한 이미지' },
+  { imgsrc : 'reardoor_small.png',  imgLargesrc : 'reardoor_large.png',badge:'', title1 : '리어 도어 핸들', title2 : '', content : '히든 타임의 리어 도어 핸들' },
+  { imgsrc : 'casper_aloywheel_small.png',  imgLargesrc : 'casper_aloywheel_large.png',badge:'인스퍼레이션 트림 이상', title1 : '알로이 휠', title2 : '', content : '17인치 전면가공 알로이 휠' },
+  { imgsrc : 'active_aloywheel_small.png',  imgLargesrc : 'active_aloywheel_large.png',badge:'캐스퍼 액티브 전용', title1 : '블랙 알로이 휠', title2 : '', content : '17인치 블랙 알로이 휠' },
+  { imgsrc : 'ledrearlamp_small.png',  imgLargesrc : 'ledrearlamp_large.png',badge:'옵션사양', title1 : 'LED 리어콤비램프', title2 : '', content : '파라메트릭 패턴의 일체형 테일게이트 램프' },
+  { imgsrc : 'turn_signal_after.png',  imgLargesrc : 'casper_grill_larg.png',badge:'', title1 : '후진등', title2 : '', content : '' },
+  { imgsrc : 'turnsignallamp_small.png',  imgLargesrc : 'turnsignallamp_large.png',badge:'', title1 : '턴 시그널 램프', title2 : '', content : '전면부 헤드램프와 그릴 형상과 통일된 유니크한 이미지' },
+  { imgsrc : 'metalpaint_small.png',  imgLargesrc : 'metalpaint_large.png',badge:'모던 트림 이상', title1 : '메탈 페인트', title2 : '스키드 플레이트', content : '전면부와 통일된 메탈 페인트 디자인' },
+  { imgsrc : 'turn_signal_after.png',  imgLargesrc : 'casper_grill_larg.png',badge:'', title1 : '보조제동등', title2 : '', content : '' },
+  { imgsrc : 'loadperfect_small.png',  imgLargesrc : 'loadperfect_large.png',badge:'', title1 : '적재 편의성 증대', title2 : '', content : '적재 용량 증대 및 개구폭 확대로 적재 편의성 증대 ①장 415~575mm ②폭 963mm ③고 617mm 개구폭 987 / 용량 166-301L' },
+  { imgsrc : 'seatsystem_small.png',  imgLargesrc : 'seatsystem_large.png',badge:'', title1 : '시트 시스템', title2 : '', content : '' },
+  
+ 
+];
+
+function onPopup2()
+{
+  $('#popup_small2').show();
+}
+
+function popup_small2_close() {
+  $('#popup_small2').hide();
+  $('#disableDiv').hide();
+}
+
+function onPopup(index)
+{
+  now_popupNumber = index;
+  $('#popup_small .small_popup_img_area img').attr('src', './assets/img/popup/' +  popupContents[index].imgsrc );
+  $('#popup_small .small_popup_content .title1').html(popupContents[index].title1);
+  if (popupContents[index].badge != '' && popupContents[index].badge != undefined)
+  {
+    $('#popup_small #small_popup_badge').show()
+    $('#popup_small #small_popup_badge').html(popupContents[index].badge);
+  }
+  else
+  {
+    $('#popup_small #small_popup_badge').hide();
+    $('#popup_small #small_popup_badge').html('');
+  }
+  $('#popup_small .small_popup_content .title2').html(popupContents[index].title2);
+  $('#popup_small .small_popup_content .content').html(popupContents[index].content);
+  $('#popup_small').show();
+  $('#disableDiv').show();
+}
+
+
+function onPopupLarge(execption)
+{
+  if (execption == 'exception')
+  {
+    $('#popup_large').css({"background-image":"url('./assets/img/popup/headlamp_large.png')"}); 	
+  }
+  else
+  {
+    $('#popup_large').css({"background-image":"url('./assets/img/popup/"+ popupContents[now_popupNumber].imgLargesrc+"')"}); 	
+  }
+  $('#popup_large').show();
+  $('#popup_small').hide();
+  $('#disableDiv').show();
+}
+
+function popup_large_close() {
+  $('#popup_large').hide();
+  $('#disableDiv').hide();
+  resetBtnMetrial();
+}
+
+function popup_small_close() {
+  $('#popup_small').hide();
+  $('#disableDiv').hide();
+  resetBtnMetrial();
+}
+
+function popup_social_close() {
+  $('#popup_social').hide();
+  $('#disableDiv').hide();
+}
+
+function changeCar(num) {
+  $('#car_select .car_select_btn').each(function(index, item) {
+    $(item).removeClass('selected')
+	});
+  
+  $('#car_select_btn_' + num).addClass('selected')
+  carNumber = num;
+}
+
+function changeMenu(num) {
+  if (RadarWavesMixer) RadarWavesMixer.existingAction(mesh.animations[2], mesh).stop();
+
+  $('#nav-bar .tab').each(function(index, item) {
+    $(item).removeClass('selected')
+	});
+  
+  $('#tab-' + num).addClass('selected')
+  if(num == 1)
+  {
+    $('#outside-nav-bar').show();
+    $('#inside-nav-bar').hide();
+
+    zoomOutCameraForInside();
+  }
+  else if (num == 2){
+    $('#outside-nav-bar').hide();
+    $('#inside-nav-bar').show();
+    
+    zoomInCameraForInside();
+  }else if (num == 3){
+    $('#outside-nav-bar').hide();
+    $('#inside-nav-bar').hide();
+    
+    //안전사양
+    RadarWavesAnimation();
+  }
+  else if (num == 4) {
+    $('#outside-nav-bar').hide();
+    $('#inside-nav-bar').hide();
+    activateAR_click();
+  }
+  else {
+    $('#outside-nav-bar').hide();
+    $('#inside-nav-bar').hide();
+  }
+
+}
+
+
+function activateAR_click() {
+    var modelViewer = document.getElementById('model-viewer');
+    modelViewer.setAttribute('src', carModelNoAniGlb);
+    modelViewer.setAttribute('ios-src', carModelNoAniUsdz);
+    console.log(modelViewer);
+
+    if (modelViewer.canActivateAR)
+    {
+      modelViewer.activateAR();
+    }
+    else
+    {
+      alert('모델이 아직 로딩되지 않았거나 기타 문제로 AR을 구동할 수 없습니다. 잠시후 다시 시도해주세요..');
+    }
+}
+
+function changeOutsideMenu(num) {
+
+  resetInSideMenu();
+  console.log('you choose Outside Num #' + num)
+  if (num == 1)
+  {
+    if (isOutsideDetail)
+    {
+      $('#outside_tab-1 img').attr('src', './assets/img/icon_sub_detail_off.png' );
+      isOutsideDetail = false;
+      resetBtn();
+      
+    }
+    else
+    {
+      $('#outside_tab-1 img').attr('src', './assets/img/icon_sub_detail_on.png' );
+      isOutsideDetail = true;
+      
+      $('#outside_tab-2 img').attr('src', './assets/img/icon_sub_lamp_off.png' );
+      isOutsideLamp = false;
+    }
+
+  }
+  else if (num == 2 )
+  {
+    if (isOutsideLamp)
+    {
+      $('#outside_tab-2 img').attr('src', './assets/img/icon_sub_lamp_off.png' );
+      isOutsideLamp = false;
+    }
+    else
+    {
+      resetBtn();
+      $('#outside_tab-2 img').attr('src', './assets/img/icon_sub_lamp_on.png' );
+      isOutsideLamp = true;
+      $('#outside_tab-1 img').attr('src', './assets/img/icon_sub_detail_off.png' );
+      isOutsideDetail = false;
+    }
+  }
+  else
+  {
+    resetOutSideMenu();
+  }
+
+}
+
+function resetOutSideMenu()
+{
+  isOutsideDetail = false;
+  $('#outside_tab-1 img').attr('src', './assets/img/icon_sub_detail_off.png' );
+  isOutsideLamp = false;
+  $('#outside_tab-2 img').attr('src', './assets/img/icon_sub_lamp_off.png' );
+}
+
+function resetInSideMenu()
+{
+  isInsideDetail = false;
+  $('#inside_tab-1 img').attr('src', './assets/img/icon_sub_detail_off.png' );
+  isInsideLamp = false;
+  $('#inside_tab-2 img').attr('src', './assets/img/icon_sub_mood_off.png' );
+}
+
+function changeInsideMenu(num) {
+resetOutSideMenu();
+console.log('you choose Inside Num #' + num)
+if (num == 1)
+  {
+    
+  //$('.container').hide();
+    if (isInsideDetail)
+    {
+      $('#inside_tab-1 img').attr('src', './assets/img/icon_sub_detail_off.png' );
+      isInsideDetail = false;
+    }
+    else
+    {
+      $('#inside_tab-1 img').attr('src', './assets/img/icon_sub_detail_on.png' );
+      isInsideDetail = true;
+    }
+
+  }
+  else if (num == 2 )
+  {
+    isInsideDetail = false;
+    $('#inside_tab-1 img').attr('src', './assets/img/icon_sub_detail_off.png' );
+  
+    if (isInsideLamp)
+    {
+      $('#inside_tab-2 img').attr('src', './assets/img/icon_sub_mood_off.png' );
+      isInsideLamp = false;
+    }
+    else
+    {
+      $('#inside_tab-2 img').attr('src', './assets/img/icon_sub_mood_on.png' );
+      isInsideLamp = true;
+    }
+  }
+  else
+  {
+    resetInSideMenu();
+  }
+
+}
+
+
+function getParameter(strParamName) {
+    var arrResult = null;
+    if (strParamName) {
+        arrResult = location.search.match(new RegExp("[&?]" + strParamName+"=(.*?)(&|$)"));
+        return arrResult && arrResult[1] ? arrResult[1] : null;
+    }
+}
+
+
+$(document).ready(function(){
+
+  playAlert = setInterval(function() {
+   $('#bubble2').hide();
+   $('#bubble').hide();
+   
+   if (Math.random() < 0.2 )
+   {
+    if (window.matchMedia('(orientation: portrait)').matches) {
+      $('#bubble').show();
+    }
+    else
+    {
+      $('#bubble2').show();
+    }
+   }
+
+  }, 5000);
+
+  var cartype = getParameter("type");
+  if (cartype != null && cartype =='extend')
+  {
+    changeCar(2);
+  }
+  else
+  {
+    changeCar(1);
+  }
+  changeMenu(0);
+
+  var modelViewer = document.getElementById('model-viewer');
+  $(modelViewer).hide();
+
+  //$('#disableDiv').show();
+  //$('#popup_large').show();
+  //$('#popup_small').show();
+  //$('#popup_social').show();
+
+  if (window.matchMedia('(orientation: portrait)').matches) {
+		// Portrait 모드일 때 실행할 스크립트
+		// 폭과 높이가 같으면 Portrait 모드로 인식돼요
+    //changeResolution('portrait');
+	} else {
+		// Landscape 모드일 때 실행할 스크립트
+    //changeResolution('landscape');
+	}
+
+
+  window.addEventListener('resize', function () {
+    rotateScene();
+	if (window.matchMedia('(orientation: portrait)').matches) {
+		changeMenu(0);
+	} else {
+		changeMenu(0);
+	}
+});
+  
+});
+
+</script>
+	<script type="text/javascript">
+   letsee.ready(() => {
+        letsee.start();
+
+        if(carNumber == 1) {
+          carModelGlb = 'assets/model/Hyundai_Basic_v04.glb';
+          carModelUsdz = 'assets/model/Hyundai_Basic_v04.usdz';
+        } else if(carNumber == 2) {
+          carModelGlb = 'assets/model/Hyundai_Active_v01.glb';
+          carModelUsdz = 'assets/model/Hyundai_Active_v01.usdz';
+        }
+
+        letsee.addTHREE(THREE).then(obj => {
+            camera = obj.camera;
+            renderer = obj.renderer;
+            scene = obj.scene;
+            initWorld();
+        });
+    
+        letsee.onTrackStart(() => {});
+        letsee.onTrackEnd(() => {
+          const matrix = {
+            elements: [	1, 0, 0, 0, 
+                  0, 1, 0, 0,
+                  0, 0, 1, 0,
+                  0, -1, -6, 1],
+            isMatrix4: true,
+          }
+    
+          toystory.matrixAutoUpdate = false;
+          toystory.applyMatrix4(matrix);
+          toystory.updateMatrix();
+          toystory.visible = true;
+        });
+        letsee.onTrackMove(() => {});
+        
+      });
+      letsee.init();
+
+      // Prevent user zoom in/out the webpage
+      document.addEventListener('gesturestart', function (e) {
+      e.preventDefault();
+      });
+
+    	</script>
+
+</body>
+</html>

@@ -1,0 +1,104 @@
+@font-face { 
+  font-family: 'HyundaiSansHeadKRMedium';
+  src: url('../assets/fonts/HyundaiSansHeadKRMedium.eot'); /* IE9 Compat Modes */ 
+  src: local('LGSmHaTSB_0'),
+    url('../assets/fonts/HyundaiSansHeadKRMedium.ttf') format('truetype'), /* Safari, Android, iOS */ 
+    url('../assets/fonts/HyundaiSansHeadKRMedium.woff') format('woff'), /* Safari, Android, iOS */ 
+      }
+
+
+@font-face { 
+  font-family: 'HyundaiSansHeadKRLight';
+  src: url('../assets/fonts/HyundaiSansHeadKRLight.eot'); /* IE9 Compat Modes */ 
+  src: local('LGSmHaTSB_0'),
+    url('../assets/fonts/HyundaiSansHeadKRLight.ttf') format('truetype'), /* Safari, Android, iOS */ 
+    url('../assets/fonts/HyundaiSansHeadKRLight.woff') format('woff'), /* Safari, Android, iOS */ 
+      }
+
+
+
+#background
+{
+  position: fixed;
+  background-color: #8b8f73;
+  width : 100%;
+  height : 14.625rem;
+  left : 0;
+  top : 0;
+  z-index: -1;
+
+}
+
+#slick_area
+{
+  height : 15.625rem;
+  .single_item{
+    padding-left: 1rem;
+    img {
+    
+    overflow: hidden;
+    }
+  }
+
+  .slick-dots{position:absolute; height:10px; font-size:0; left: 15%;bottom:-15%;} 
+  .slick-dots li{display:inline-block; width:10px; height:10px; border-radius:50%;  opacity: 0.2; background-color: #000; margin-left:20px; text-indent:-9999px;} 
+  .slick-dots .slick-active{background-color:#8b8f73;} 
+  //.slick-dots li.slick-active:before {content:''; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:20px; height:20px; border-radius:50%;border:1px solid red;}
+}
+  
+  #title
+  {
+   
+    position: fixed;
+    left: 40%;
+    bottom : 40%;
+    transform: translate(-50%, 0);
+  }
+
+  #link
+  {
+  
+    position: fixed;
+    left: 50%;
+    bottom : 35%;
+
+    a { 
+      text-decoration : none ;
+      position:absolute;
+    }
+
+    #a1{ right : 1.032rem;}
+    #a2{ left : 1.032rem;}
+  }
+
+  #footer_logo{
+    position: fixed;
+    bottom : 5%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    
+  }
+
+  .loading_image {
+    position: fixed;
+    
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+
+  #loading_image1{top : 16.313rem; }
+  #loading_image2{top : 27.063rem; }
+  #loading_image3{top : 28.688rem; }
+
+
+  @media( orientation: landscape ){
+    html {
+      transform: rotate(-90deg);
+      transform-origin: top left;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100vh;
+      height: 100vw;
+    }
+  }
