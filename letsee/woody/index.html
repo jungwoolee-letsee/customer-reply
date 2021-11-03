@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= htmlWebpackPlugin.options.title %></title>
+
+  <!-- THREE.js -->
+  <script src="https://unpkg.com/three@0.121.1/build/three.min.js"></script>
+  <script src="https://unpkg.com/three@0.126.1/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://mrdoob.github.io/stats.js/build/stats.min.js"></script>
+
+
+  <script src="https://developer.letsee.io/api/webar?key=012ae1956601251471d3636ac86c5556648e98f7d0911fd72fdfab40d66cee53"></script>
+</head>
+<body>
+
+<script>
+  let scene;
+  let camera;
+  let renderer;
+  let update;
+  const stats = new Stats();
+
+  stats.showPanel(1);
+  document.body.appendChild(stats.dom);
+
+  letsee.ready(() => {
+    letsee.start();
+    letsee.addTHREE(THREE).then(obj => {
+      console.log(obj);
+      // camera = obj.camera;
+      renderer = obj.renderer;
+      scene = obj.scene;
+      update = obj.update;
+      letsee.addTarget('https://d-developer.letsee.io/api-tm/target-manager/target-uid/60ed0b01821c70ad32ca98b2').then(entity => {
+
+        const light1 = new THREE.HemisphereLight(0xFFFFFF, 0xFFFFFF, 1);
+        light1.position.set(100, -500, 200);
+        scene.add(light1);
+
+        const light2 = new THREE.DirectionalLight(0xffffff);
+        light2.position.set(0, 200, 100);
+        scene.add(light2);
+
+        let geometry_toy = new THREE.BoxGeometry(142, 200, 0);
+        let texture_toy = new THREE.TextureLoader().load('toystory.jpg');
+        let material_toy = new THREE.MeshBasicMaterial({map: texture_toy});
+        let target1 = new THREE.Mesh(geometry_toy, material_toy);
+        target1.name = 'Mesh 1';
+        entity.add(target1);
+
+        let gltfLoader = new THREE.GLTFLoader();
+        gltfLoader.load( 'https://intra.letsee.io/3D-model/gltf/woody/scene.gltf' , function(gltf) {
+          gltf.scene.scale.setScalar(2);
+          gltf.scene.position.set(10, -40, 50);
+          gltf.scene.name = 'Woody';
+          entity.add(gltf.scene);
+        }, () => {}, () => {});
+
+        scene.add(entity);
+
+        const animate = async function() {
+          requestAnimationFrame(animate);
+          stats.begin();
+          await letsee.threeRenderer().update();
+
+          const camera = letsee.threeRenderer().getDeviceCamera();
+          renderer.render(scene, camera);
+          stats.end();
+        };
+        animate();
+      });
+    });
+  });
+  letsee.init();
+
+</script>
+</body>
+</html>

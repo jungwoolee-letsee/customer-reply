@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Letsee WebAR - glTF Loader</title>
+  
+  <!-- Letsee SDK -->
+  <script src="https://d-developer.letsee.io/api/webar?key=ea407974ae0d563466bedf58e162b5023a7442ad13815ae06834d0e2f600111c"></script>
+  
+  <script src="https://unpkg.com/three@0.126.1/build/three.min.js"></script>
+  <script src="https://unpkg.com/three@0.126.1/examples/js/loaders/RGBELoader.js"></script>
+  <script src="https://unpkg.com/three@0.126.1/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://unpkg.com/three@0.126.1/examples/js/libs/stats.min.js"></script>
+
+  <style>
+    .stats canvas {
+        width: 160px !important;
+        height: 96px !important;
+    }
+  </style>
+
+  <script src="js/gltf-loader.js"></script>
+</head>
+<body>
+<script>
+
+  let scene, camera, renderer;
+  const stats = new Stats();
+  document.body.appendChild(stats.dom);
+  stats.dom.className = 'stats'
+  
+  letsee.ready(() => {
+    letsee.start();
+    
+    letsee.addTHREE(THREE).then(obj => {
+      camera = obj.camera;
+      renderer = obj.renderer;
+      scene = obj.scene;
+      
+      initWorld();
+      
+    })
+  
+    letsee.onTrackStart(() => {});
+    letsee.onTrackMove(() => {});
+    letsee.onTrackEnd(() => {});
+    
+  });
+  letsee.init();
+  
+  // Prevent user zoom in/out the webpage
+  document.addEventListener('gesturestart', function (e) {
+    e.preventDefault();
+  });
+
+</script>
+</body>
+</html>
