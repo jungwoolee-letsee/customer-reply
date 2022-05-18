@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
@@ -9,9 +9,53 @@
     <script src="https://unpkg.com/three@0.123.0/build/three.min.js"></script>
     <script src="https://unpkg.com/three@0.123.0/examples/js/loaders/RGBELoader.js"></script>
     <script src="https://unpkg.com/three@0.123.0/examples/js/loaders/GLTFLoader.js"></script>
+    <link rel="stylesheet" href="style.css">
 
     <!-- Replace the app key here with your own app key -->
     <script src="https://developer.letsee.io/api/webar?key=6df1d25d4e20ec3b77559c3ddd88ff02cf9c3dbb96669bb202c23fa078871400"></script>
+    
+    <div id="container">
+        <div class="header">
+            <img src="./assets/header.png" />
+        </div>
+        
+        <div class="button-list">
+            <!-- 생활 -->
+            <div class="buttons-item">
+                <div>
+                    <img src="./assets/btn4.png" class="buttons-item-img" alt=""/>
+                </div>
+                
+            </div>
+            <!-- 교육 -->
+            <div class="buttons-item">
+                <div>
+                    <img src="./assets/btn3.png" class="buttons-item-img" alt=""/>
+                </div>
+            </div>
+            <!-- 교통 -->
+            <div class="buttons-item">
+                <div>
+                    <img src="./assets/btn2.png" class="buttons-item-img" alt=""/>
+                </div>
+            </div>
+            <!-- 전체 화면 -->
+            <div class="buttons-item">
+                <div>
+                    <img src="./assets/btn1.png" class="buttons-item-img" alt=""/>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>은평자이 더 스타 AR의 3D 및 애니메이션은 <br/>
+            소비자의 이해를 돕기 위한 것으로 실제와 다릅니다.</p>
+        </div>
+    </div>
+    
+    <div id="landscape" >
+       <p> 세로모드로 이용해주세요. </p>
+    </div>
 </head>
 <body>
 <script>
@@ -51,6 +95,7 @@
 
     const create3DWorld = (obj) => {
         renderer = obj.renderer;
+        renderer.setPixelRatio(window.devicePixelRatio);
         scene = obj.scene;
 
         ambientLight = new THREE.AmbientLight(0xffffff, 1);
@@ -66,7 +111,7 @@
 
         new THREE.RGBELoader()
         .setDataType( THREE.UnsignedByteType )
-        .load( 'photo_studio_01_1k.hdr', function ( texture ) {
+        .load( './assets/photo_studio_01_1k.hdr', function ( texture ) {
       
           let envMap = pmremGenerator.fromEquirectangular( texture ).texture;
       
@@ -80,7 +125,7 @@
 
         letsee.addTarget('https://developer.letsee.io/api-tm/target-manager/target-uid/6283658eb6f9af1f05858ba6').then(_entity => {
             entity = _entity;
-            loadModel('xi0530_fin.glb')
+            loadModel('./assets/xi0530_fin.glb')
                 .then(model => {
                     mesh = model;
 
@@ -132,9 +177,9 @@
                         console.log(animation);
                         mixer = new THREE.AnimationMixer(mesh);
                         let action = mixer.clipAction(animation);
-                        action.play(); 
+                        action.play();
                         allMixers.push(mixer);
-                    });                   
+                    });
                 } else console.warn(`Model does not have animation`);
 
                 resolve(mesh);
