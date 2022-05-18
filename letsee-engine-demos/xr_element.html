@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+
+    <!-- THREE.js -->
+    <script src="https://unpkg.com/three@0.121.1/build/three.min.js"></script>
+    <script src="https://mrdoob.github.io/stats.js/build/stats.min.js"></script>
+    <style media="place" type="text/css">
+    </style>
+
+    <!--    <script src="https://s-developer.letsee.io/api/webar?key=eb496ab3293a118d73aea5946a8c1e7272bfa1b64caf14852923d929dc3ea144"></script>-->
+    <script src="https://developer.letsee.io/api/webar?key=e9b601ae104b471a55b9c5767041ee644aec440b75e77e541cb2b66cc96a6521"></script>
+
+</head>
+<body>
+
+<script>
+    let scene;
+    let camera;
+    let renderer;
+    let update;
+    let toystory;
+    let bind = false;
+    const stats = new Stats();
+
+    stats.showPanel(1);
+    document.body.appendChild(stats.dom);
+
+    letsee.ready(() => {
+        letsee.start();
+        letsee.addTarget('toystory.json').then(entity => {
+
+            const parent = document.createElement('div');
+            parent.id = 'parent';
+            parent.innerHTML = '부모';
+
+            window.xrElement = letsee.createXRElement(parent, entity);
+            // letsee.bindXRElement(xrElement, entity);
+            window.xrElement2 = letsee.createXRElement('<div class="children">자식 1</div>');
+            xrElement2.position.x = 50;
+            window.xrElement3 = letsee.createXRElement('<div class="children">자식 2</div>');
+            xrElement3.position.x = -50;
+            xrElement.add(xrElement2);
+            xrElement.add(xrElement3);
+
+            console.log(letsee.getXRElementById('parent'));
+            console.log(letsee.getXRElementByClassName('children'));
+
+            setInterval(() => {
+                if (bind) {
+                    letsee.unbindXRElement(xrElement);
+                    bind = false;
+                } else {
+                    letsee.bindXRElement(xrElement, entity);
+                    bind = true;
+                }
+            }, 2000);
+        });
+    });
+    letsee.init();
+</script>
+</body>
+</html>

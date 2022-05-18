@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Letsee WebAR SDK Test WebApp</title>
+    <script src="https://developer.letsee.io/api/webar?key=e9b601ae104b471a55b9c5767041ee644aec440b75e77e541cb2b66cc96a6521"></script>
+    <style media="place" type="text/css">
+        #container {
+            -letsee-target: uri('toystory.json');
+            width: 140px;
+            height: 200px;
+            border: 4px solid red;
+        }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+
+<script>
+    letsee.ready(() => {
+        letsee.start();
+    });
+    letsee.init();
+</script>
+</body>
+</html>

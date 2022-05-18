@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+
+    <!-- THREE.js -->
+    <script src="https://unpkg.com/three@0.121.1/build/three.min.js"></script>
+    <script src="https://mrdoob.github.io/stats.js/build/stats.min.js"></script>
+    <style media="place" type="text/css">
+        #container {
+            -letsee-target: uri('qrcode.json');
+            width: 63px;
+            height: 63px;
+            border: 5px solid red;
+        }
+    </style>
+
+    <script src="https://developer.letsee.io/api/webar?key=e9b601ae104b471a55b9c5767041ee644aec440b75e77e541cb2b66cc96a6521"></script>
+</head>
+<body>
+<div id="container">
+    <h5 style="font-size: 30px; color: #950B02">
+        마커0
+    </h5>
+</div>
+<div id="container1"></div>
+<button id="pause-button">Pause</button>
+<button id="resume-button">Start</button>
+
+<script>
+    let scene;
+    let camera;
+    let renderer;
+    let update;
+    let toystory;
+    const stats = new Stats();
+
+    stats.showPanel(1);
+    document.body.appendChild(stats.dom);
+
+    letsee.ready(() => {
+        letsee.start();
+        letsee.addTHREE(THREE).then(obj => {
+            // camera = obj.camera;
+            renderer = obj.renderer;
+            scene = obj.scene;
+            update = obj.update;
+            letsee.addTarget(
+                'qrcode.json'
+            ).then(entity => {
+                const geometry = new THREE.BoxGeometry();
+                const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+                const cube = new THREE.Mesh( geometry, material );
+                cube.scale.set(30, 30, 30);
+                cube.position.z = 30;
+                entity.add(cube);
+
+                let axesHelper = new THREE.AxesHelper(30);
+                entity.add(axesHelper);
+
+                scene.add(entity);
+
+                const animate = async function() {
+                    requestAnimationFrame(animate);
+                    stats.begin();
+
+                    const camera = letsee.threeRenderer().getDeviceCamera();
+                    renderer.render(scene, camera);
+
+                    await letsee.threeRenderer().update();
+
+                    stats.end();
+                };
+                animate();
+            });
+        });
+
+    });
+    letsee.init({trackerType: 'qrcode'});
+
+</script>
+</body>
+</html>

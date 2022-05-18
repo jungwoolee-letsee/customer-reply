@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>광동제약</title>
+    <script src="https://developer.letsee.io/api/webar?key=449b0fe530fff84eaaaa8a31580a3676b86ef53604cf85115ebe63bd36d9e697"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Sound howler -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+
+    <script src="res/js/js.js?v=10"></script>
+    <link rel="stylesheet" type="text/css" href="res/css/css.css?v=10" />
+
+    <style media="place" type="text/css">
+      #container {
+        -letsee-target: uri(
+          "https://developer.letsee.io/api-tm/target-manager/target-uid/61cd7c9156197305fc5c1393"
+        );
+      }
+      #eventForm {
+        position: absolute;
+        display: none;
+        z-index: 103;
+      }
+      #eventFrame {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="guideline">
+      <img src="res/imgs/guideline.png?v=10" />
+    </div>
+    <div id="loading">
+      <img src="res/imgs/loading.gif" />
+    </div>
+    <div id="container"></div>
+    <div id="eventForm">
+      <iframe
+        id="eventFrame"
+        src="mandarin.html"
+        frameborder="0"
+        allow="accelerometer;"
+        scrolling="no"
+      ></iframe>
+    </div>
+  </body>
+</html>
+
+<script>
+  var child = document.getElementById("eventFrame");
+  window.addEventListener("message", getPostMessage, false);
+
+  startLetsee();
+
+  function startLetsee() {
+    letsee.init();
+    letsee.ready(() => {
+      letsee.start();
+    });
+    letsee.onTrackStart((e) => {
+      mandarinSnd.play();
+
+      $(".guideline").hide();
+
+      sendPostMessage(1);
+      $("#eventForm").css("height", `${$(window).innerHeight()}px`);
+      $("#eventForm").css("width", `${$(window).innerWidth()}px`);
+      $("#eventForm").show();
+    });
+  }
+
+  /** letsee의 카메라를 얻어온 뒤 아래 canPlay 이벤트가 전파됨 **/
+  letsee.videoManager().srcVideo.addEventListener("canplay", () => {
+    $("#loading").hide();
+    $(".guideline").show();
+  });
+
+  function sendPostMessage(data) {
+    child.contentWindow.postMessage(data, "*");
+  }
+</script>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link
+          rel="stylesheet"
+          href="https://unpkg.com/swiper@7/swiper-bundle.min.css"
+  />
+
+  <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+  <style>
+      .swiper-slide { width: 20%; margin-right: 10px; height: 200px; }
+      .swiper-slide.slide01 { background-color: #BE5EC2; }
+      .swiper-slide.slide02 { background-color: #F862A7; }
+      .swiper-slide.slide03 { background-color: #FF7B87; }
+      .swiper-slide.slide04 { background-color: #FFA26A; }
+      .swiper-slide.slide05 { background-color: #FFCE5E; }
+      .swiper-slide.slide06 { background-color: #F9F871; }
+      .swiper-slide.slide07 { background-color: #BE5EC2; }
+      .swiper-slide.slide08 { background-color: #F862A7; }
+      .swiper-slide.slide09 { background-color: #FF7B87; }
+      .swiper-slide.slide10 { background-color: #FFA26A; }
+      .swiper-slide.slide11 { background-color: #FFCE5E; }
+      .swiper-slide.slide12 { background-color: #F9F871; }
+  </style>
+</head>
+<body>
+
+<div class="swiper-container mySwiper">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide slide01"></div>
+    <div class="swiper-slide slide02"></div>
+    <div class="swiper-slide slide03"></div>
+    <div class="swiper-slide slide04"></div>
+    <div class="swiper-slide slide05"></div>
+    <div class="swiper-slide slide06"></div>
+    <div class="swiper-slide slide07"></div>
+    <div class="swiper-slide slide08"></div>
+    <div class="swiper-slide slide09"></div>
+    <div class="swiper-slide slide10"></div>
+    <div class="swiper-slide slide11"></div>
+    <div class="swiper-slide slide12"></div>
+  </div>
+</div>
+</body>
+<script>
+  const swiper = new Swiper('.swiper-container', {
+    loop: true,
+    centeredSlides: true,
+    slidesPerView: 'auto',
+    slideToClickedSlide: true,
+    effect: 'coverflow',
+    coverflowEffect: {
+      rotate: 0,
+      slideShadows: false,
+    },
+  });
+</script>
+</html>

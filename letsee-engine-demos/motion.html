@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+
+    <!-- THREE.js -->
+    <script src="https://unpkg.com/three@0.121.1/build/three.min.js"></script>
+    <script src="https://mrdoob.github.io/stats.js/build/stats.min.js"></script>
+    <script src="https://developer.letsee.io/api/webar?key=e9b601ae104b471a55b9c5767041ee644aec440b75e77e541cb2b66cc96a6521"></script>
+</head>
+<body>
+<div id="container"></div>
+
+<script>
+    letsee.ready(() => {
+        letsee.addTarget('https://developer.letsee.io/api-tm/target-manager/target-uid/60b71a02130fc5b620875dfc').then(entity => {
+            letsee.start();
+            letsee.onAccelerationChange(e => {
+                const {x, y, z} = e;
+                console.log(x); // x축 방향에 대한 가속도 (m/초2)
+                console.log(y); // y축 방향에 대한 가속도 (m/초2)
+                console.log(z); // z축 방향에 대한 가속도 (m/초2)
+            });
+
+            letsee.onAccelerationIncludingGravityChange(e => {
+                const {x, y, z} = e;
+                console.log(x); // x축 방향에 대한 중력이 적용된 가속도 (m/초2)
+                console.log(y); // y축 방향에 대한 중력이 적용된 가속도 (m/초2)
+                console.log(z); // z축 방향에 대한 중력이 적용된 가속도 (m/초2)
+            });
+
+            letsee.onRotationRateChange(e => {
+                const {alpha, beta, gamma} = e;
+                console.log(alpha); // z축을 기준으로 한 초당 회전 각도 (°/초)
+                console.log(beta); // x축을 기준으로 한 초당 회전 각도 (°/초)
+                console.log(gamma); // y축을 기준으로 한 초당 회전 각도 (°/초)
+            });
+
+            letsee.onOrientationChange(e => {
+                const {alpha, beta, gamma} = e;
+                console.log(alpha); // z축의 중심을 기준으로 얼마만큼 회전했는지에 대한 각도값 (°), 기기 상단이 정북향을 가리킬 때 alpha값이 0°이며, 기기가 시계 반대 방향으로 회전할수록 alpha 값이 증가 (0~360°)
+                console.log(beta); // x축의 중심을 기준으로 얼마만큼 회전했는지에 대한 각도값 (°), 기기 상단과 하단이 지면에서 등거리에 있을 때 beta값은 0°이며, 기기의 상단이 지면을 향해 기울어질수록 값이 증가 (-180°~180°)
+                console.log(gamma); // y축의 중심을 기준으로 얼마만큼 회전했는지에 대한 각도값 (°), 기기 왼쪽과 오른쪽 가장자리가 지면에서 등거리에 있을 때 gamma값은 0°이며, 기기의 오른쪽이 지면을 향해 기울어질수록 값이 증가 (-180°~180°)
+            });
+        });
+    });
+    letsee.init();
+
+</script>
+</body>
+</html>

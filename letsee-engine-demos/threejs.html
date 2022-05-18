@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    
+    <!-- THREE.js -->
+    <script src="https://unpkg.com/three@0.121.1/build/three.min.js"></script>
+    <script src="https://mrdoob.github.io/stats.js/build/stats.min.js"></script>
+    <script src="https://developer.letsee.io/api/webar?key=e9b601ae104b471a55b9c5767041ee644aec440b75e77e541cb2b66cc96a6521"></script>
+</head>
+<body>
+<div id="container"></div>
+
+<script>
+    let scene;
+    let camera;
+    let renderer;
+    let update;
+    const stats = new Stats();
+    
+    stats.showPanel(1);
+    document.body.appendChild(stats.dom);
+    
+    letsee.ready(() => {
+        letsee.start();
+        letsee.addTHREE(THREE).then(obj => {
+            console.log(obj);
+            // camera = obj.camera;
+            renderer = obj.renderer;
+            scene = obj.scene;
+            update = obj.update;
+            letsee.addTarget('toystory.json').then(entity => {
+                const geometry = new THREE.BoxGeometry();
+                const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+                const cube = new THREE.Mesh( geometry, material );
+                cube.scale.set(50, 50, 50);
+                entity.add(cube);
+                
+                let geometry_toy = new THREE.BoxGeometry(142, 200, 0);
+                let texture_toy = new THREE.TextureLoader().load('toystory.jpg');
+                let material_toy = new THREE.MeshBasicMaterial({map: texture_toy});
+                let target1 = new THREE.Mesh(geometry_toy, material_toy);
+                target1.name = 'Mesh 1';
+                let axesHelper = new THREE.AxesHelper(300);
+                entity.add(axesHelper);
+                entity.add(target1);
+                
+                scene.add(entity);
+                
+                const animate = async function() {
+                    requestAnimationFrame(animate);
+                    stats.begin();
+                    await letsee.threeRenderer().update();
+                    
+                    const camera = letsee.threeRenderer().getDeviceCamera();
+                    renderer.render(scene, camera);
+                    stats.end();
+                };
+                animate();
+            });
+        });
+    });
+    letsee.init();
+
+</script>
+</body>
+</html>

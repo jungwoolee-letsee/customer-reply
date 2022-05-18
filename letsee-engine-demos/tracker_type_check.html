@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+
+    <!-- THREE.js -->
+    <script src="https://unpkg.com/three@0.121.1/build/three.min.js"></script>
+    <script src="https://mrdoob.github.io/stats.js/build/stats.min.js"></script>
+
+    <style media="place" type="text/css">
+        #container {
+            -letsee-target: uri('marker_00.json');
+            width: 30px;
+            height: 30px;
+            border: 2px solid red;
+        }
+
+        #container1 {
+            -letsee-target: uri('descriptor_resize.json');
+            width: 140px;
+            height: 200px;
+            border: 4px solid red;
+        }
+    </style>
+
+    <script src="https://developer.letsee.io/api/webar?key=e9b601ae104b471a55b9c5767041ee644aec440b75e77e541cb2b66cc96a6521"></script>
+</head>
+<body>
+<div id="container"></div>
+<div id="container1"></div>
+
+<script>
+    let scene;
+    let camera;
+    let renderer;
+    let update;
+    let toystory;
+    const stats = new Stats();
+
+    stats.showPanel(1);
+    document.body.appendChild(stats.dom);
+
+    const config = {
+        trackerType: 'marker', // marker, image
+    };
+    letsee.init(config);
+
+    letsee.ready(() => {
+        letsee.start();
+    });
+
+</script>
+</body>
+</html>

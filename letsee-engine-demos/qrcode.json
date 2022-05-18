@@ -1,0 +1,8 @@
+{
+  "uri":"qrcode.json",
+  "qrCodeData": "https://intra.letsee.io:10001/dist",
+  "physicalSize":{
+    "width": 63,
+    "height": 63
+  }
+}
