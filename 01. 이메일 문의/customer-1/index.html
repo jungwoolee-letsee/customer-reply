@@ -6,35 +6,35 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r120/three.js"></script>
   <script src="js/FBXLoader.js"></script>
   <script src="js/inflate.min.js"></script>
-  <script src="https://developer.letsee.io/api/webar?key=1118d5de6fa9db6e1afcc6df60d40408b7d4fc03265844a058127a73682412ff"></script>
-  <script src="https://hammerjs.github.io/dist/hammer.js"></script>
-
+  <script src="https://api.letsee.io/auth/webar?key=0e967903e7588627a5bd56c5881e8306939fb5c6761758d3f0adc8d76a7c53a5"></script>
 </head>
 <body>
 <script>
-	let scene;
+  /** 요청사항 : FBX 파일 로드 **/
+	
+  let scene;
 	let renderer;
 	let update;
 	let clock = new THREE.Clock();
-
+	console.log(letsee);
+ 
 	letsee.ready(() => {
 		letsee.start();
 		letsee.addTHREE(THREE).then(obj => {
 			renderer = obj.renderer;
 			scene = obj.scene;
 			update = obj.update;
-			letsee.addTarget('https://s-developer.letsee.io/api-tm/target-manager/target-uid/60b07fe2ffb936e8cd1de397').then(entity => {
-				let mixer;
+      letsee.addTarget('https://api.letsee.io/targets/target-manager/target-uid/6316f42871704ffe75f172b6').then(entity => {
+				let mesh, mixer;
 				let light = new THREE.DirectionalLight(0xffffff);
 				light.position.set(0, -95, 120);
 				scene.add(light);
 
 				const loader = new THREE.FBXLoader();
-				loader.load('./Samba Dancing.fbx',  (mesh) => { // loader.load('./ball.fbx', function (mesh) {
-						mesh.position.set(0, -95, 50);
+				loader.load('./volvo.fbx', function (mesh) { // loader.load('./ball.fbx', function (mesh) {
+						// mesh.position.set(0, -95, 50);
 						mesh.visible = true;
-						mesh.scale.setScalar(2);
-						window.mesh = mesh;
+						mesh.scale.setScalar(5);
 
 						// Create custom animation clips
 						if (mesh.animations.length > 0) {
@@ -67,45 +67,6 @@
 		})
 	});
 	letsee.init();
-
-
-	// hammer 이벤트 선언
-	let myElement = document.body;
-	myElement.style.display = 'block';
-
-	let mc = new Hammer(myElement);
-	mc.get('pinch').set({enable: true});
-	mc.get('pan').set({enable: true, direction: Hammer.DIRECTION_ALL, velocity: 0.000000001, threshold: 0});
-
-	// Scale object, 2 fingers
-	mc.on('pinch', (ev) => {
-		console.error(`Scale`);
-		mesh.scale.setScalar(ev.scale);
-	});
-
-	// Rotate object left/right, 1 finger
-	let lastDeltaX = 0;
-	let lastDeltaY = 0;
-
-	mc.on('panmove', (ev) => {
-		const { deltaX, deltaY } = ev;
-
-		const positionX = deltaX - lastDeltaX;
-		mesh.position.x = mesh.position.x + positionX;
-		lastDeltaX = deltaX;
-
-		const positionY = deltaY - lastDeltaY;
-		mesh.position.y = mesh.position.y - positionY;
-		lastDeltaY = deltaY;
-	});
-
-	// mc.on('panup pandown', (ev) => {
-	// 	const { deltaX, deltaY } = ev;
-	// 	const positionY = deltaY - lastDeltaY;
-	// 	mesh.position.y = mesh.position.y - positionY;
-	// 	lastDeltaY = deltaY;
-  // })
-
 </script>
 </body>
 </html>

@@ -6,10 +6,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r120/three.js"></script>
   <script src="js/FBXLoader.js"></script>
   <script src="js/inflate.min.js"></script>
-  <script src="https://developer.letsee.io/api/webar?key=494ef647d62efdeb43dcf2449e1650ac59985f4f5437e9dbbf8376db26cf95df"></script>
+  <script src="https://api.letsee.io/auth/webar?key=0e967903e7588627a5bd56c5881e8306939fb5c6761758d3f0adc8d76a7c53a5"></script>
 </head>
 <body>
 <script>
+  /** 요청사항 : FBX 파일 로드 **/
+  
 	let scene;
 	let renderer;
 	let update;
@@ -33,7 +35,7 @@
 		scene.add(light);
 
 		// letsee.addTarget('https://s-developer.letsee.io/api-tm/target-manager/target-uid/6099fec6ffb936e8cd1de390').then(entity => {
-    letsee.addTarget('https://s-developer.letsee.io/api-tm/target-manager/target-uid/60a23096ffb936e8cd1de394').then(entity => {
+    letsee.addTarget('https://api.letsee.io/targets/target-manager/target-uid/6316f42871704ffe75f172b6').then(entity => {
 			let toystory = entity;
 			let mesh, mixer;
 

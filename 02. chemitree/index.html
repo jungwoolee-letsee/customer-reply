@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  <title>Letsee WebApp: Loading GLB model</title>
+  
+  <!-- THREE.js must be supplied -->
+  <script src="https://unpkg.com/three@0.123.0/build/three.min.js"></script>
+  <script src="https://unpkg.com/three@0.123.0/examples/js/loaders/RGBELoader.js"></script>
+  <script src="https://unpkg.com/three@0.123.0/examples/js/loaders/GLTFLoader.js"></script>
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Replace the app key here with your own app key -->
+  <script src="https://api.letsee.io/auth/webar?key=0e967903e7588627a5bd56c5881e8306939fb5c6761758d3f0adc8d76a7c53a5"></script>
+  
+  <div id="container">
+    <div class="header">
+      <img src="./assets/header.png" />
+    </div>
+    
+    <div class="button-list">
+      <!-- 생활 -->
+      <div class="buttons-item">
+        <div>
+          <img src="./assets/btn4.png" class="buttons-item-img" alt=""/>
+        </div>
+      
+      </div>
+      <!-- 교육 -->
+      <div class="buttons-item">
+        <div>
+          <img src="./assets/btn3.png" class="buttons-item-img" alt=""/>
+        </div>
+      </div>
+      <!-- 교통 -->
+      <div class="buttons-item">
+        <div>
+          <img src="./assets/btn2.png" class="buttons-item-img" alt=""/>
+        </div>
+      </div>
+      <!-- 전체 화면 -->
+      <div class="buttons-item">
+        <div>
+          <img src="./assets/btn1.png" class="buttons-item-img" alt=""/>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <p>은평자이 더 스타 AR의 3D 및 애니메이션은 <br/>
+        소비자의 이해를 돕기 위한 것으로 실제와 다릅니다.</p>
+    </div>
+  </div>
+  
+  <div id="landscape" >
+    <p> 세로모드로 이용해주세요. </p>
+  </div>
+</head>
+<body>
+<script>
+  /** 요청사항 : glb 모델 로드, 아파트 모델 마커와 위치 정합, 밝기 hdr로 조절 **/
+  
+  let allMixers = [];
+  let scene,
+      camera,
+      renderer,
+      ambientLight,
+      directionalLight,
+      mesh,
+      animations,
+      mixer,
+      entity,
+      clock = new THREE.Clock();
+  let loader = new THREE.GLTFLoader();
+  
+  letsee.ready(() => {
+    letsee.start();
+    
+    // Activate THREE.js library
+    letsee.addTHREE(THREE).then(obj => {
+      create3DWorld(obj);
+    });
+  });
+  letsee.init();
+  
+  const onProgress = (xhr) => {
+    if (xhr.lengthComputable) {
+      const percentComplete = xhr.loaded / xhr.total * 100;
+      console.warn(Math.round(percentComplete) + '%');
+    }
+  };
+  
+  const onError = (e) => {
+    console.error(e);
+  };
+  
+  const create3DWorld = (obj) => {
+    renderer = obj.renderer;
+    renderer.setPixelRatio(window.devicePixelRatio);
+    scene = obj.scene;
+    
+    ambientLight = new THREE.AmbientLight(0xffffff, 1);
+    ambientLight.position.set(0, 0, 0);
+    scene.add(ambientLight);
+    
+    directionalLight = new THREE.DirectionalLight(0xffffff);
+    directionalLight.position.set(0, -95, 120);
+    scene.add(directionalLight);
+    
+    let pmremGenerator = new THREE.PMREMGenerator( renderer );
+    pmremGenerator.compileEquirectangularShader();
+    
+    new THREE.RGBELoader()
+        .setDataType( THREE.UnsignedByteType )
+        .load( './assets/photo_studio_01_1k.hdr', function ( texture ) {
+          
+          let envMap = pmremGenerator.fromEquirectangular( texture ).texture;
+          
+          // scene.background = envMap;
+          scene.environment = envMap;
+          
+          texture.dispose();
+          pmremGenerator.dispose();
+          
+        });
+    
+    letsee.addTarget('https://api.letsee.io/targets/target-manager/target-uid/6316f42871704ffe75f172b6').then(_entity => {
+      entity = _entity;
+      loadModel('./assets/xi0530_fin.glb')
+          .then(model => {
+            mesh = model;
+            
+            // 2.Add mesh into entity
+            entity.add(mesh);
+            
+            // 3. Add entity to scene
+            scene.add(entity);
+            
+          });
+      
+      // Render all
+      const animate = async function() {
+        requestAnimationFrame(animate);
+        
+        let d = clock.getDelta();
+        // Play all mixers
+        if (allMixers.length > 0) {
+          for (let mx of allMixers) {
+            mx.update(d);
+          }
+        }
+        
+        camera = letsee.threeRenderer().getDeviceCamera();
+        await letsee.threeRenderer().update();
+        
+        renderer.render(scene, camera);
+      };
+      
+      animate();
+    });
+  }
+  
+  const loadModel = (path) => {
+    return new Promise((resolve) => {
+      loader.load(path, function (gltf) {
+        
+        mesh = gltf.scene;
+        animations = gltf.animations;
+        
+        mesh.rotation.x = Math.PI/180 * 90;
+        mesh.position.x = -50;
+        mesh.position.y = 0;
+        mesh.scale.setScalar(1.6);
+        
+        // Play model's animation
+        if (animations.length) {
+          animations.forEach(function (animation) {
+            console.log(animation);
+            mixer = new THREE.AnimationMixer(mesh);
+            let action = mixer.clipAction(animation);
+            action.play();
+            allMixers.push(mixer);
+          });
+        } else console.warn(`Model does not have animation`);
+        
+        resolve(mesh);
+        
+      }, onProgress, onError);
+    });
+  }
+
+</script>
+
+</body>
+</html>
